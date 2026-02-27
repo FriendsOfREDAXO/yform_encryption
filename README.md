@@ -369,5 +369,5 @@ use FriendsOfREDAXO\YFormEncryption\ColumnMigrator;
 
 MIT – siehe [LICENSE.md](LICENSE.md)
 
-**Autor**: [Thomas Skerbis](https://github.com/skerbis) / [FriendsOfREDAXO](https://github.com/FriendsOfREDAXO)  
+**Autor**:  [FriendsOfREDAXO](https://github.com/FriendsOfREDAXO)  
 **Support**: https://github.com/FriendsOfREDAXO/yform_encryption
