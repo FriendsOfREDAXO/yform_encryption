@@ -21,8 +21,6 @@ $error = '';
 if (rex_post('btn_save', 'string', '') !== '') {
     $addon->setConfig('key_file_path', rex_post('key_file_path', 'string', ''));
     $addon->setConfig('logging_enabled', rex_post('logging_enabled', 'int', 1));
-    $timeoutMinutes = max(1, rex_post('session_timeout', 'int', 30));
-    $addon->setConfig('session_timeout', $timeoutMinutes * 60);
     $keyManager->resetCache();
     $message = $addon->i18n('yform_encryption_config_saved');
 }
@@ -112,19 +110,6 @@ $formContent .= '<input type="checkbox" name="logging_enabled" value="1"' . ($lo
 $formContent .= $addon->i18n('yform_encryption_logging_enabled');
 $formContent .= '</label>';
 $formContent .= '<p class="help-block">' . $addon->i18n('yform_encryption_logging_help') . '</p>';
-$formContent .= '</div>';
-
-// Session Timeout
-$currentTimeout = (int) $addon->getConfig('session_timeout', 1800);
-$timeoutMinutes = intdiv($currentTimeout, 60);
-$formContent .= '<div class="form-group">';
-$formContent .= '<label for="session_timeout">' . $addon->i18n('yform_encryption_session_timeout') . '</label>';
-$formContent .= '<div class="input-group" style="max-width:200px;">';
-$formContent .= '<input class="form-control" type="number" id="session_timeout" name="session_timeout" '
-    . 'value="' . $timeoutMinutes . '" min="1" max="1440">';
-$formContent .= '<span class="input-group-addon">min</span>';
-$formContent .= '</div>';
-$formContent .= '<p class="help-block">' . $addon->i18n('yform_encryption_session_timeout_help') . '</p>';
 $formContent .= '</div>';
 
 $formContent .= '<button class="btn btn-save" type="submit" name="btn_save" value="1">'

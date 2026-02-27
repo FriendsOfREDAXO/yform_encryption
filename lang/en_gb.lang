@@ -80,8 +80,7 @@ yform_encryption_auth_timeout_info = Access will be automatically locked after {
 yform_encryption_auth_success = Authentication successful. Bulk operations are now unlocked.
 yform_encryption_auth_failed = Authentication failed. Username or password incorrect.
 yform_encryption_session_locked = Session has been locked.
-yform_encryption_session_timeout = Session timeout (minutes)
-yform_encryption_session_timeout_help = After this time, bulk operations will be automatically locked. Default: 30 minutes.
+# yform_encryption_session_timeout: controlled via package.yml (session_timeout: 1800)
 
 # Info page
 yform_encryption_info_how_title = How it works

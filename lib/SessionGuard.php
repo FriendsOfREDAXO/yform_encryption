@@ -152,7 +152,7 @@ class SessionGuard
     public function getTimeout(): int
     {
         $addon = \rex_addon::get('yform_encryption');
-        return (int) $addon->getConfig('session_timeout', self::DEFAULT_TIMEOUT);
+        return (int) $addon->getProperty('session_timeout', self::DEFAULT_TIMEOUT);
     }
 
     /**

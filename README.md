@@ -221,7 +221,7 @@ Massenoperationen wie das **nachträgliche Ver- oder Entschlüsseln bestehender 
 4. Weitere Bulk-Aktionen innerhalb dieses Zeitfensters erfordern keine erneute Eingabe.
 5. Nach Ablauf des Timeouts (oder manueller Sperrung) muss erneut authentifiziert werden.
 
-> Der Timeout ist unter **YForm Encryption → Einstellungen** konfigurierbar.
+> Der Timeout ist **nicht** über das Backend-UI änderbar. Er wird in der `package.yml` des Addons als `session_timeout` (in Sekunden) konfiguriert. Standard: `1800` (30 Minuten).
 
 **Warum dieser zusätzliche Schutz?**  
 Bulk-Operationen schreiben alle Datensätze einer Tabelle um. Ein versehentlicher Klick – oder ein kompromittiertes Admin-Konto das gerade in der Session läuft – könnte sonst alle verschlüsselten Daten im Klartext in die DB schreiben. Die erneute Passwortabfrage stellt sicher, dass die Aktion bewusst von einer autorisierten Person ausgelöst wird.

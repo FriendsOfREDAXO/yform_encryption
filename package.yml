@@ -28,6 +28,10 @@ requires:
     packages:
         yform: '>=4.0'
 
+# Dauer der Bulk-Freischaltung in Sekunden (Standard: 1800 = 30 Minuten)
+# Nur hier änderbar, nicht im Backend-UI
+session_timeout: 1800
+
 conflicts:
     packages:
         yform_export: '*'

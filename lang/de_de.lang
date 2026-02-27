@@ -80,8 +80,7 @@ yform_encryption_auth_timeout_info = Die Freischaltung wird nach {0} Minuten aut
 yform_encryption_auth_success = Authentifizierung erfolgreich. Bulk-Operationen sind jetzt freigeschaltet.
 yform_encryption_auth_failed = Authentifizierung fehlgeschlagen. Benutzername oder Passwort falsch.
 yform_encryption_session_locked = Session wurde gesperrt.
-yform_encryption_session_timeout = Session-Timeout (Minuten)
-yform_encryption_session_timeout_help = Nach dieser Zeit werden Bulk-Operationen automatisch gesperrt. Standard: 30 Minuten.
+# yform_encryption_session_timeout: wird über package.yml gesteuert (session_timeout: 1800)
 
 # Info page
 yform_encryption_info_how_title = Funktionsweise
