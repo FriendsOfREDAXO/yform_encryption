@@ -1,0 +1,99 @@
+yform_encryption_title = YForm Verschlüsselung
+yform_encryption_config = Einstellungen
+yform_encryption_mapping = Feld-Mapping
+yform_encryption_info = Info & Hilfe
+
+# Config page
+yform_encryption_status = Status
+yform_encryption_sodium_status = PHP Sodium Extension
+yform_encryption_available = Verfügbar
+yform_encryption_not_available = Nicht verfügbar
+yform_encryption_key_status = Verschlüsselungsschlüssel
+yform_encryption_key_found = Schlüssel gefunden
+yform_encryption_no_key = Kein Schlüssel konfiguriert
+yform_encryption_source = Quelle
+yform_encryption_source_env = Umgebungsvariable (YFORM_ENCRYPTION_KEY)
+yform_encryption_source_file = Schlüsseldatei (außerhalb Webroot)
+yform_encryption_source_data = REDAXO data-Verzeichnis
+yform_encryption_config_saved = Konfiguration gespeichert.
+yform_encryption_key_file_path = Pfad zur Schlüsseldatei
+yform_encryption_key_file_path_help = Absoluter Pfad zur Schlüsseldatei. Leer lassen für den Standardpfad (ein Verzeichnis über dem Webroot).
+yform_encryption_logging_enabled = Verschlüsselungs-Log aktivieren
+yform_encryption_logging_help = Protokolliert alle Verschlüsselungs- und Entschlüsselungsvorgänge in der Datenbank.
+yform_encryption_save = Konfiguration speichern
+
+# Key management
+yform_encryption_key_management = Schlüsselverwaltung
+yform_encryption_no_key_warning = Es ist noch kein Verschlüsselungsschlüssel konfiguriert. Bitte generieren Sie einen oder setzen Sie die Umgebungsvariable YFORM_ENCRYPTION_KEY.
+yform_encryption_key_location = Speicherort für den Schlüssel
+yform_encryption_location_file = Datei außerhalb des Webroot (empfohlen)
+yform_encryption_location_data = REDAXO data-Verzeichnis (Fallback)
+yform_encryption_env_hint = Alternative: Sie können den Schlüssel auch als Umgebungsvariable setzen (z.B. in Plesk, Docker oder .htaccess):
+yform_encryption_generate_key = Neuen Schlüssel generieren
+yform_encryption_generate_confirm = Sind Sie sicher? Ein neuer Schlüssel macht bereits verschlüsselte Daten UNLESBAR, wenn der alte Schlüssel nicht gesichert wurde!
+yform_encryption_key_exists_warning = Achtung: Es existiert bereits ein Schlüssel. Generieren eines neuen Schlüssels macht bestehende verschlüsselte Daten unlesbar!
+yform_encryption_key_generated = Neuer Schlüssel wurde erfolgreich generiert.
+yform_encryption_key_saved_to = Schlüssel gespeichert in: {0}
+
+# Mapping page
+yform_encryption_no_tables = Keine YForm-Tabellen mit text-basierten Feldern gefunden.
+yform_encryption_goto_config = Zur Konfiguration
+yform_encryption_active = Aktiv
+yform_encryption_field = Feldname
+yform_encryption_label = Label
+yform_encryption_type = Typ
+yform_encryption_status_col = Status
+yform_encryption_encrypted = Verschlüsselt
+yform_encryption_not_encrypted = Nicht verschlüsselt
+yform_encryption_save_mapping = Mapping speichern
+yform_encryption_mapping_saved = Feld-Mapping wurde gespeichert.
+yform_encryption_field_added = Feld „{0}" in Tabelle „{1}" zur Verschlüsselung hinzugefügt.
+yform_encryption_field_add_error = Bitte Tabelle und Feld auswählen.
+yform_encryption_table = Tabelle
+yform_encryption_fields = Verschlüsselte Felder
+
+# Bulk operations
+yform_encryption_encrypt_existing = Bestehende Daten verschlüsseln
+yform_encryption_decrypt_existing = Alle Daten entschlüsseln
+yform_encryption_bulk_encrypt_confirm = Alle bestehenden Klartext-Daten in dieser Tabelle verschlüsseln?
+yform_encryption_bulk_decrypt_confirm = ACHTUNG: Alle verschlüsselten Daten in dieser Tabelle werden in Klartext zurückgeschrieben! Fortfahren?
+yform_encryption_bulk_encrypted = {0} Datensätze wurden verschlüsselt.
+yform_encryption_bulk_decrypted = {0} Datensätze wurden entschlüsselt.
+yform_encryption_current_mapping = Aktives Verschlüsselungs-Mapping
+
+# Export
+yform_encryption_export_csv = CSV exportieren
+yform_encryption_export_csv_title = Alle Daten entschlüsselt als CSV-Datei exportieren
+yform_encryption_export_xlsx = Excel exportieren
+yform_encryption_export_xlsx_title = Alle Daten entschlüsselt als Excel-Datei exportieren
+yform_encryption_bulk_locked = Bulk-Operationen gesperrt – bitte authentifizieren.
+
+# Session Guard / Authentifizierung
+yform_encryption_bulk_auth_title = Bulk-Operationen – Authentifizierung
+yform_encryption_auth_required_desc = Um Bulk-Verschlüsselung oder -Entschlüsselung durchzuführen, authentifizieren Sie sich bitte mit Ihren Backend-Zugangsdaten.
+yform_encryption_username = Benutzername
+yform_encryption_password = Passwort
+yform_encryption_authenticate = Authentifizieren
+yform_encryption_session_active = Bulk-Operationen freigeschaltet. Verbleibende Zeit:
+yform_encryption_lock_now = Jetzt sperren
+yform_encryption_auth_timeout_info = Die Freischaltung wird nach {0} Minuten automatisch gesperrt.
+yform_encryption_auth_success = Authentifizierung erfolgreich. Bulk-Operationen sind jetzt freigeschaltet.
+yform_encryption_auth_failed = Authentifizierung fehlgeschlagen. Benutzername oder Passwort falsch.
+yform_encryption_session_locked = Session wurde gesperrt.
+yform_encryption_session_timeout = Session-Timeout (Minuten)
+yform_encryption_session_timeout_help = Nach dieser Zeit werden Bulk-Operationen automatisch gesperrt. Standard: 30 Minuten.
+
+# Info page
+yform_encryption_info_how_title = Funktionsweise
+yform_encryption_info_how_desc = Dieses AddOn verschlüsselt ausgewählte YForm-Felder automatisch in der Datenbank. Die Verschlüsselung erfolgt direkt nach dem Speichern (per Extension Point YFORM_SAVED), sowohl im Frontend (Besucher-Formulare) als auch im Backend. Im Backend werden die Daten automatisch entschlüsselt angezeigt. Die Verschlüsselung verwendet libsodium (XSalsa20-Poly1305) mit authentifizierter Verschlüsselung.
+yform_encryption_info_key_title = Schlüsselverwaltung
+yform_encryption_info_key_desc = Der Verschlüsselungsschlüssel wird in folgender Priorität gesucht:
+yform_encryption_info_env_desc = Ideal für Plesk, Docker oder andere Hosting-Umgebungen. Der Schlüssel liegt nie im Dateisystem.
+yform_encryption_info_file_desc = Der Schlüssel wird in einer Datei außerhalb des Webroot gespeichert. Empfohlene Methode für dedizierte Server.
+yform_encryption_info_data_desc = Fallback-Methode. Der Schlüssel liegt im REDAXO data-Verzeichnis und wird per .htaccess geschützt.
+yform_encryption_info_usage_title = Verwendung im Code (z.B. für PDF-Export)
+yform_encryption_info_plesk_title = Einrichtung in Plesk
+yform_encryption_info_plesk_desc = In Plesk können Sie die Umgebungsvariable unter „Domains" → „PHP-Einstellungen" → „Zusätzliche Direktiven" setzen:
+yform_encryption_info_docker_title = Einrichtung in Docker
+yform_encryption_info_warning_title = Wichtiger Hinweis
+yform_encryption_info_warning_desc = Sichern Sie Ihren Verschlüsselungsschlüssel an einem sicheren Ort! Wenn der Schlüssel verloren geht, können die verschlüsselten Daten NICHT mehr wiederhergestellt werden. Es gibt keine Hintertür oder Master-Key. Erstellen Sie ein Backup des Schlüssels bevor Sie Änderungen vornehmen.

@@ -1,0 +1,99 @@
+yform_encryption_title = YForm Encryption
+yform_encryption_config = Settings
+yform_encryption_mapping = Field Mapping
+yform_encryption_info = Info & Help
+
+# Config page
+yform_encryption_status = Status
+yform_encryption_sodium_status = PHP Sodium Extension
+yform_encryption_available = Available
+yform_encryption_not_available = Not available
+yform_encryption_key_status = Encryption Key
+yform_encryption_key_found = Key found
+yform_encryption_no_key = No key configured
+yform_encryption_source = Source
+yform_encryption_source_env = Environment variable (YFORM_ENCRYPTION_KEY)
+yform_encryption_source_file = Key file (outside webroot)
+yform_encryption_source_data = REDAXO data directory
+yform_encryption_config_saved = Configuration saved.
+yform_encryption_key_file_path = Key file path
+yform_encryption_key_file_path_help = Absolute path to the key file. Leave empty for default (one directory above webroot).
+yform_encryption_logging_enabled = Enable encryption log
+yform_encryption_logging_help = Logs all encryption and decryption operations to the database.
+yform_encryption_save = Save configuration
+
+# Key management
+yform_encryption_key_management = Key Management
+yform_encryption_no_key_warning = No encryption key configured yet. Please generate one or set the YFORM_ENCRYPTION_KEY environment variable.
+yform_encryption_key_location = Key storage location
+yform_encryption_location_file = File outside webroot (recommended)
+yform_encryption_location_data = REDAXO data directory (fallback)
+yform_encryption_env_hint = Alternative: You can also set the key as an environment variable (e.g. in Plesk, Docker or .htaccess):
+yform_encryption_generate_key = Generate new key
+yform_encryption_generate_confirm = Are you sure? A new key will make already encrypted data UNREADABLE if the old key was not backed up!
+yform_encryption_key_exists_warning = Warning: A key already exists. Generating a new key will make existing encrypted data unreadable!
+yform_encryption_key_generated = New key was successfully generated.
+yform_encryption_key_saved_to = Key saved to: {0}
+
+# Mapping page
+yform_encryption_no_tables = No YForm tables with text-based fields found.
+yform_encryption_goto_config = Go to configuration
+yform_encryption_active = Active
+yform_encryption_field = Field name
+yform_encryption_label = Label
+yform_encryption_type = Type
+yform_encryption_status_col = Status
+yform_encryption_encrypted = Encrypted
+yform_encryption_not_encrypted = Not encrypted
+yform_encryption_save_mapping = Save mapping
+yform_encryption_mapping_saved = Field mapping saved.
+yform_encryption_field_added = Field "{0}" in table "{1}" added for encryption.
+yform_encryption_field_add_error = Please select table and field.
+yform_encryption_table = Table
+yform_encryption_fields = Encrypted fields
+
+# Bulk operations
+yform_encryption_encrypt_existing = Encrypt existing data
+yform_encryption_decrypt_existing = Decrypt all data
+yform_encryption_bulk_encrypt_confirm = Encrypt all existing plaintext data in this table?
+yform_encryption_bulk_decrypt_confirm = WARNING: All encrypted data in this table will be written back as plaintext! Continue?
+yform_encryption_bulk_encrypted = {0} records have been encrypted.
+yform_encryption_bulk_decrypted = {0} records have been decrypted.
+yform_encryption_current_mapping = Active encryption mapping
+
+# Export
+yform_encryption_export_csv = Export CSV
+yform_encryption_export_csv_title = Export all data decrypted as CSV file
+yform_encryption_export_xlsx = Export Excel
+yform_encryption_export_xlsx_title = Export all data decrypted as Excel file
+yform_encryption_bulk_locked = Bulk operations locked – please authenticate.
+
+# Session Guard / Authentication
+yform_encryption_bulk_auth_title = Bulk Operations – Authentication
+yform_encryption_auth_required_desc = To perform bulk encryption or decryption, please authenticate with your backend credentials.
+yform_encryption_username = Username
+yform_encryption_password = Password
+yform_encryption_authenticate = Authenticate
+yform_encryption_session_active = Bulk operations unlocked. Remaining time:
+yform_encryption_lock_now = Lock now
+yform_encryption_auth_timeout_info = Access will be automatically locked after {0} minutes.
+yform_encryption_auth_success = Authentication successful. Bulk operations are now unlocked.
+yform_encryption_auth_failed = Authentication failed. Username or password incorrect.
+yform_encryption_session_locked = Session has been locked.
+yform_encryption_session_timeout = Session timeout (minutes)
+yform_encryption_session_timeout_help = After this time, bulk operations will be automatically locked. Default: 30 minutes.
+
+# Info page
+yform_encryption_info_how_title = How it works
+yform_encryption_info_how_desc = This addon automatically encrypts selected YForm fields in the database. Encryption happens immediately after saving (via the YFORM_SAVED extension point), both in front-end (visitor forms) and back-end. In the back-end, data is automatically decrypted for display. The encryption uses libsodium (XSalsa20-Poly1305) with authenticated encryption.
+yform_encryption_info_key_title = Key Management
+yform_encryption_info_key_desc = The encryption key is searched for in the following priority:
+yform_encryption_info_env_desc = Ideal for Plesk, Docker or other hosting environments. The key is never stored in the file system.
+yform_encryption_info_file_desc = The key is stored in a file outside the webroot. Recommended method for dedicated servers.
+yform_encryption_info_data_desc = Fallback method. The key is stored in the REDAXO data directory and protected via .htaccess.
+yform_encryption_info_usage_title = Usage in code (e.g. for PDF export)
+yform_encryption_info_plesk_title = Setup in Plesk
+yform_encryption_info_plesk_desc = In Plesk, you can set the environment variable under "Domains" → "PHP Settings" → "Additional directives":
+yform_encryption_info_docker_title = Setup in Docker
+yform_encryption_info_warning_title = Important Notice
+yform_encryption_info_warning_desc = Back up your encryption key in a safe place! If the key is lost, encrypted data can NOT be recovered. There is no backdoor or master key. Create a backup of the key before making any changes.

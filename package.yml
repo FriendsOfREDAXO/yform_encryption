@@ -1,0 +1,32 @@
+package: yform_encryption
+version: '1.0.0'
+author: 'FriendsOfREDAXO'
+supportpage: https://github.com/FriendsOfREDAXO/yform_encryption
+
+page:
+    title: 'translate:yform_encryption_title'
+    icon: rex-icon fa-lock
+    perm: admin
+    subpages:
+        config:
+            title: 'translate:yform_encryption_config'
+            icon: rex-icon fa-cog
+        mapping:
+            title: 'translate:yform_encryption_mapping'
+            icon: rex-icon fa-table
+        info:
+            title: 'translate:yform_encryption_info'
+            icon: rex-icon fa-info-circle
+
+requires:
+    redaxo: '>=5.18'
+    php:
+        version: '>=8.1'
+        extensions:
+            - sodium
+    packages:
+        yform: '>=4.0'
+
+conflicts:
+    packages:
+        yform_export: '*'

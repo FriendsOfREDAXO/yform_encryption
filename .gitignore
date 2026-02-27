@@ -1,0 +1,10 @@
+# Composer-Vendor (wird beim Build via composer install erzeugt)
+/vendor/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp

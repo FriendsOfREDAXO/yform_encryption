@@ -1,0 +1,135 @@
+/* YForm Encryption Backend Styles */
+
+:root {
+    --yform-enc-success: #5cb85c;
+    --yform-enc-warning: #f0ad4e;
+    --yform-enc-danger: #d9534f;
+    --yform-enc-info: #5bc0de;
+    --yform-enc-muted: #999;
+    --yform-enc-border: #ddd;
+    --yform-enc-bg-group: #f9f9f9;
+}
+
+body.rex-theme-dark {
+    --yform-enc-success: #4caf50;
+    --yform-enc-warning: #ff9800;
+    --yform-enc-danger: #f44336;
+    --yform-enc-info: #29b6f6;
+    --yform-enc-muted: #888;
+    --yform-enc-border: #444;
+    --yform-enc-bg-group: #2a2a3e;
+}
+
+@media (prefers-color-scheme: dark) {
+    body.rex-has-theme:not(.rex-theme-light) {
+        --yform-enc-success: #4caf50;
+        --yform-enc-warning: #ff9800;
+        --yform-enc-danger: #f44336;
+        --yform-enc-info: #29b6f6;
+        --yform-enc-muted: #888;
+        --yform-enc-border: #444;
+        --yform-enc-bg-group: #2a2a3e;
+    }
+}
+
+/* Table Groups on Mapping Page */
+.yform-encryption-table-group {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--yform-enc-bg-group);
+    border-radius: 4px;
+    border: 1px solid var(--yform-enc-border);
+}
+
+.yform-encryption-table-group h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--yform-enc-border);
+}
+
+.yform-encryption-table-group h4 small {
+    font-size: 0.75em;
+    font-weight: normal;
+}
+
+.yform-encryption-table-group .table {
+    margin-bottom: 1rem;
+}
+
+/* Bulk Actions */
+.yform-encryption-bulk-actions {
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--yform-enc-border);
+}
+
+.yform-encryption-bulk-actions .btn {
+    margin-right: 0.5rem;
+}
+
+/* Status Labels in List */
+.rex-table td .fa-lock {
+    color: var(--yform-enc-success);
+}
+
+.rex-table td .fa-unlock {
+    color: var(--yform-enc-muted);
+}
+
+/* Config Status */
+.dl-horizontal dt {
+    width: 200px;
+}
+
+.dl-horizontal dd {
+    margin-left: 220px;
+}
+
+/* Footer Buttons */
+.rex-page-section-footer {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--yform-enc-border);
+}
+
+/* Info Page Code Blocks */
+pre code {
+    display: block;
+    padding: 1rem;
+    background: var(--yform-enc-bg-group);
+    border-radius: 4px;
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Session Guard / Auth Panel */
+.yform-encryption-session-active {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.yform-encryption-session-active .alert {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.yform-encryption-session-active #yform-enc-timer {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 1.2em;
+}
+
+.yform-encryption-auth-form {
+    max-width: 600px;
+}
+
+.yform-encryption-auth-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.yform-encryption-auth-form .help-block {
+    margin-top: 1.5rem;
+    color: var(--yform-enc-muted);
+}
