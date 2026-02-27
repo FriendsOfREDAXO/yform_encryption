@@ -14,9 +14,10 @@ page:
         mapping:
             title: 'translate:yform_encryption_mapping'
             icon: rex-icon fa-table
-        info:
-            title: 'translate:yform_encryption_info'
-            icon: rex-icon fa-info-circle
+        help:
+            title: 'translate:yform_encryption_help'
+            subPath: README.md
+            itemClass: 'pull-right'
 
 requires:
     redaxo: '>=5.18'

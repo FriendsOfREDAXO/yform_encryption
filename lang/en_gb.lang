@@ -1,7 +1,7 @@
 yform_encryption_title = YForm Encryption
 yform_encryption_config = Settings
 yform_encryption_mapping = Field Mapping
-yform_encryption_info = Info & Help
+yform_encryption_help = Help & Help
 
 # Config page
 yform_encryption_status = Status
