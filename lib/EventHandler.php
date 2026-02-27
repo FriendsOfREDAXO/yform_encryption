@@ -283,7 +283,7 @@ class EventHandler
     /**
      * Schreibt einen Eintrag ins Verschlüsselungs-Log.
      */
-    private static function log(
+    public static function log(
         string $tableName,
         int $datasetId,
         string $fieldName,

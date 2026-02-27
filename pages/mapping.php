@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use FriendsOfREDAXO\YFormEncryption\ColumnMigrator;
+use FriendsOfREDAXO\YFormEncryption\EventHandler;
 use FriendsOfREDAXO\YFormEncryption\FieldMapper;
 use FriendsOfREDAXO\YFormEncryption\KeyManager;
 use FriendsOfREDAXO\YFormEncryption\SessionGuard;
@@ -149,8 +150,7 @@ if (rex_post('btn_encrypt_existing', 'string', '') !== '' && $isUnlocked) {
                     $sql->next();
                 }
 
-                $message = $addon->i18n('yform_encryption_bulk_encrypted', (string) $count);
-            }
+                $message = $addon->i18n('yform_encryption_bulk_encrypted', (string) $count);                EventHandler::log($tableName, 0, '*', 'bulk_encrypt', $count . ' Datensätze verschlüsselt');            }
         } catch (\Exception $e) {
             $error = $e->getMessage();
         }
@@ -196,8 +196,7 @@ if (rex_post('btn_decrypt_all', 'string', '') !== '' && $isUnlocked) {
                     $sql->next();
                 }
 
-                $message = $addon->i18n('yform_encryption_bulk_decrypted', (string) $count);
-            }
+                $message = $addon->i18n('yform_encryption_bulk_decrypted', (string) $count);                EventHandler::log($tableName, 0, '*', 'bulk_decrypt', $count . ' Datensätze entschlüsselt');            }
         } catch (\Exception $e) {
             $error = $e->getMessage();
         }
