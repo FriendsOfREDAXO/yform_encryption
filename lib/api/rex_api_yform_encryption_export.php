@@ -19,8 +19,9 @@ class rex_api_yform_encryption_export extends rex_api_function
     {
         rex_response::cleanOutputBuffers();
 
-        // Nur eingeloggte Backend-User
-        if (!rex::getUser()) {
+        // Nur eingeloggte Backend-User mit Export-Berechtigung
+        $user = rex::getUser();
+        if (!$user || (!$user->isAdmin() && !$user->hasPerm('yform_encryption[export]'))) {
             http_response_code(403);
             echo json_encode(['error' => 'Forbidden']);
             exit;

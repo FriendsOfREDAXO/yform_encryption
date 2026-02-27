@@ -237,8 +237,9 @@ class EventHandler
         $table = $ep->getParam('table');
         $tableName = $table->getTableName();
 
-        $mapper = FieldMapper::getInstance();
-        if (!$mapper->hasEncryptedFields($tableName)) {
+        // Buttons nur für Admins oder User mit yform_encryption[export]-Berechtigung
+        $user = \rex::getUser();
+        if (!$user || (!$user->isAdmin() && !$user->hasPerm('yform_encryption[export]'))) {
             return $linkSets;
         }
 

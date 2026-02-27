@@ -12,7 +12,7 @@ Verschlüsselt sensible YForm-Felder serverseitig mit libsodium (XSalsa20-Poly13
 - 🔄 **Bulk-Migration** – bestehende Datensätze nachträglich ver- oder entschlüsseln, gesichert durch SessionGuard (Re-Authentifizierung)
 - 📊 **Integrierter CSV- und Excel-Export** – entschlüsselte Daten exportieren, nutzbar für alle YForm-Tabellen (auch unverschlüsselte), inklusive Dokument-Metadaten (Autor, Zeitstempel, Domain)
 - 🔎 **Info-Seite** – zeigt Schlüsselstatus, Quelle und verschlüsselte Felder je Tabelle
-- 🛡️ **Nur für Admins** – alle Funktionen erfordern Admin-Rechte im REDAXO-Backend
+- 🛡️ **Feingranulare Berechtigungen** – Addon-Verwaltung nur für Admins; der Export (CSV/Excel) kann über die Rolle `yform_encryption[export]` auch nicht-admininistativen Backend-Nutzern erlaubt werden
 - 🔗 **PHP-API** – `Helper`-Klasse für einfachen Zugriff aus Modulen und Templates
 
 ---
@@ -191,6 +191,8 @@ Das Addon ersetzt `yform_export` und bringt einen eigenen, vollwertigen Exporter
 - CSV-Export mit UTF-8-BOM für korrekte Darstellung in Excel.
 - Spaltenbezeichnungen aus den YForm-Feldlabels (nicht die Datenbankspaltenname).
 - Erste Zeile in Excel fett formatiert, Spaltenbreite automatisch, erste Zeile eingefroren.
+
+**Berechtigung**: Der Export steht Admins sowie allen Nutzern zur Verfügung, denen in der Rollenverwaltung die Berechtigung **`yform_encryption[export]`** zugewiesen wurde. Die Buttons erscheinen nur für berechtigte Nutzer.
 
 ---
 
