@@ -24,6 +24,11 @@ if (rex_addon::get('yform')->isAvailable()) {
     EventHandler::register();
 }
 
+// Berechtigung registrieren – erscheint in Rollenverwaltung
+if (rex::isBackend()) {
+    rex_perm::register('yform_encryption[export]', rex_i18n::msg('perm_yform_encryption_export'));
+}
+
 if (rex::isBackend() && rex::getUser()) {
     rex_view::addCssFile($this->getAssetsUrl('css/yform-encryption.css'));
     rex_view::addJsFile($this->getAssetsUrl('js/yform-encryption.js'));

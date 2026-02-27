@@ -30,6 +30,3 @@ requires:
 conflicts:
     packages:
         yform_export: '*'
-
-permissions:
-    - yform_encryption[export]

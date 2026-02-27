@@ -97,3 +97,6 @@ yform_encryption_info_plesk_desc = In Plesk können Sie die Umgebungsvariable un
 yform_encryption_info_docker_title = Einrichtung in Docker
 yform_encryption_info_warning_title = Wichtiger Hinweis
 yform_encryption_info_warning_desc = Sichern Sie Ihren Verschlüsselungsschlüssel an einem sicheren Ort! Wenn der Schlüssel verloren geht, können die verschlüsselten Daten NICHT mehr wiederhergestellt werden. Es gibt keine Hintertür oder Master-Key. Erstellen Sie ein Backup des Schlüssels bevor Sie Änderungen vornehmen.
+
+# Berechtigungen
+perm_yform_encryption_export = YForm Encryption: CSV-/Excel-Export
