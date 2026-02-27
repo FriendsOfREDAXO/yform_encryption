@@ -4,6 +4,17 @@
 
 Verschlüsselt sensible YForm-Felder serverseitig mit libsodium (XSalsa20-Poly1305). Die Daten werden verschlüsselt in der Datenbank gespeichert und im Backend automatisch entschlüsselt angezeigt. Der Schlüssel liegt außerhalb des Webroots.
 
+## Features
+
+- 🔐 **Transparente Verschlüsselung** – YForm-Felder werden beim Speichern automatisch ver- und beim Anzeigen entschlüsselt, ohne Änderungen am Formular
+- 🗝️ **Schlüssel außerhalb des Webroots** – als Datei oder Umgebungsvariable (`YFORM_ENCRYPTION_KEY`), kompatibel mit Plesk, Docker, Apache, Nginx
+- 📋 **Feldzuordnung per Backend** – pro Tabelle einzelne Felder zur Verschlüsselung auswählen, keine Codeänderungen nötig
+- 🔄 **Bulk-Migration** – bestehende Datensätze nachträglich ver- oder entschlüsseln, gesichert durch SessionGuard (Re-Authentifizierung)
+- 📊 **Integrierter CSV- und Excel-Export** – entschlüsselte Daten exportieren, nutzbar für alle YForm-Tabellen (auch unverschlüsselte), inklusive Dokument-Metadaten (Autor, Zeitstempel, Domain)
+- 🔎 **Info-Seite** – zeigt Schlüsselstatus, Quelle und verschlüsselte Felder je Tabelle
+- 🛡️ **Nur für Admins** – alle Funktionen erfordern Admin-Rechte im REDAXO-Backend
+- 🔗 **PHP-API** – `Helper`-Klasse für einfachen Zugriff aus Modulen und Templates
+
 ---
 
 ## Voraussetzungen
@@ -171,11 +182,15 @@ Nach dem Speichern der Feldzuordnung werden **neue Einträge** automatisch versc
 
 ## Export (CSV / Excel)
 
-Da das Addon mit `yform_export` inkompatibel ist, bringt es einen eigenen Exporter mit:
+Das Addon ersetzt `yform_export` und bringt einen eigenen, vollwertigen Exporter mit:
 
-- In der YForm-Datenliste erscheinen **CSV**- und **Excel**-Buttons.
-- Die Daten werden beim Export automatisch entschlüsselt.
-- Die Excel-Datei enthält Metadaten (Autor = eingeloggter User, Exportzeitpunkt, Domain).
+- In der YForm-Datenliste erscheinen **CSV**- und **Excel (XLSX)**-Buttons für jede Tabelle.
+- Verschlüsselte Felder werden beim Export automatisch entschlüsselt.
+- **Funktioniert auch für vollständig unverschlüsselte Tabellen** – der Exporter ist ein vollwertiger Ersatz für `yform_export` und kann für beliebige YForm-Tabellen genutzt werden.
+- Die Excel-Datei enthält Dokument-Metadaten: Autor (eingeloggter REDAXO-User), Exportzeitpunkt, Sitetitel und Domain.
+- CSV-Export mit UTF-8-BOM für korrekte Darstellung in Excel.
+- Spaltenbezeichnungen aus den YForm-Feldlabels (nicht die Datenbankspaltenname).
+- Erste Zeile in Excel fett formatiert, Spaltenbreite automatisch, erste Zeile eingefroren.
 
 ---
 
