@@ -1,5 +1,5 @@
 package: yform_encryption
-version: '1.1.0'
+version: '1.2.0'
 author: 'FriendsOfREDAXO'
 supportpage: https://github.com/FriendsOfREDAXO/yform_encryption
 
@@ -14,6 +14,9 @@ page:
         mapping:
             title: 'translate:yform_encryption_mapping'
             icon: rex-icon fa-table
+        export_columns:
+            title: 'translate:yform_encryption_export_columns_title'
+            icon: rex-icon fa-columns
         help:
             title: 'translate:yform_encryption_help'
             subPath: README.md

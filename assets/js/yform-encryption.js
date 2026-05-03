@@ -10,6 +10,7 @@
         initTableGroupToggles();
         initSelectAllCheckboxes();
         initSessionTimer();
+        initExportColumnToggles();
     });
 
     /**
@@ -137,5 +138,28 @@
         }, 1000);
 
         updateDisplay();
+    }
+
+    /**
+     * Export column Alle/Keine toggle buttons.
+     */
+    function initExportColumnToggles() {
+        document.addEventListener('click', function (e) {
+            var btnAll = e.target.closest('.yform-enc-col-all');
+            var btnNone = e.target.closest('.yform-enc-col-none');
+            if (!btnAll && !btnNone) {
+                return;
+            }
+            e.preventDefault();
+            var btn = btnAll || btnNone;
+            var target = btn.getAttribute('data-target');
+            var container = document.getElementById('yform-enc-cols-' + target);
+            if (!container) {
+                return;
+            }
+            container.querySelectorAll('input[type=checkbox]').forEach(function (cb) {
+                cb.checked = !!btnAll;
+            });
+        });
     }
 })();

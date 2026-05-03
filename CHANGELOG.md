@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 - 2026-05-03
+
+### Added
+
+- **Export-Spalten-Konfiguration**: Im Mapping-Tab kann je Tabelle festgelegt werden, welche Spalten im CSV- und Excel-Export enthalten sein sollen. Nicht ausgewählte Spalten werden ausgeblendet. Ohne Konfiguration werden wie bisher alle Spalten exportiert.
+
 ## 1.1.0 - 2026-05-03
 
 ### Added

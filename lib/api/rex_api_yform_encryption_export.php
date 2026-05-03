@@ -70,9 +70,26 @@ class rex_api_yform_encryption_export extends rex_api_function
         // Spalten-Labels aus YForm-Tabellendefinition
         $labels = [];
         if ($rows !== []) {
+            // Export-Spalten-Filter aus Addon-Konfiguration laden
+            $exportColsConfig = json_decode((string) rex_addon::get('yform_encryption')->getConfig('export_columns', '{}'), true);
+            $allowedCols = is_array($exportColsConfig) && isset($exportColsConfig[$tableName]) && $exportColsConfig[$tableName] !== []
+                ? $exportColsConfig[$tableName]
+                : null; // null = alle
+
             foreach (array_keys($rows[0]) as $colName) {
+                if ($allowedCols !== null && !in_array($colName, $allowedCols, true)) {
+                    continue;
+                }
                 $valueField = $table->getValueField($colName);
                 $labels[$colName] = $valueField ? $valueField->getLabel() : $colName;
+            }
+
+            // Zeilen auf erlaubte Spalten beschränken
+            if ($allowedCols !== null) {
+                foreach ($rows as &$row) {
+                    $row = array_intersect_key($row, $labels);
+                }
+                unset($row);
             }
         }
 
