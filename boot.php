@@ -36,14 +36,18 @@ if (rex::isBackend() && rex::getUser()) {
     // Auf YForm-Manager-Seiten: Lock/Unlock-Bar einblenden
     rex_extension::register('PAGE_CHECKED', function () {
         $page = rex_be_controller::getCurrentPage();
+        $tableName = rex_request('table_name', 'string', '');
 
-        // Nur auf yform/manager-Seiten aktiv
-        if (!str_starts_with($page, 'yform/manager/data')) {
+        $isNativeManagerPage = str_starts_with($page, 'yform/manager/data');
+        $isEmbeddedManagerPage = '' !== $tableName
+            && null !== rex_yform_manager_table::get($tableName);
+
+        // Native YForm-Manager-Seiten und eingebettete Manager-Seiten unterstützen
+        if (!$isNativeManagerPage && !$isEmbeddedManagerPage) {
             return;
         }
 
         // Prüfen ob die aktuelle Tabelle verschlüsselte Felder hat
-        $tableName = rex_request('table_name', 'string', '');
         if ($tableName === '') {
             return;
         }

@@ -47,10 +47,6 @@ class rex_api_yform_encryption_export extends rex_api_function
         $sql = rex_sql::factory();
         $rows = $sql->getArray('SELECT * FROM `' . $tableName . '`');
 
-        if ($rows === null) {
-            $rows = [];
-        }
-
         // Entschlüsseln
         $mapper = FieldMapper::getInstance();
         $encryptedFields = $mapper->getEncryptedFields($tableName);
@@ -111,11 +107,11 @@ class rex_api_yform_encryption_export extends rex_api_function
 
         // Header-Zeile
         if ($labels !== []) {
-            fputcsv($out, array_values($labels), ';');
+            fputcsv($out, array_values($labels), ';', '"', '\\');
         }
 
         foreach ($rows as $row) {
-            fputcsv($out, array_values($row), ';');
+            fputcsv($out, array_values($row), ';', '"', '\\');
         }
 
         fclose($out);

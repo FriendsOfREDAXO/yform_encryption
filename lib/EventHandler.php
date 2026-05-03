@@ -134,6 +134,13 @@ class EventHandler
             return $yform;
         }
 
+        $formName = (string) $yform->getObjectparams('form_name');
+        $postedForm = rex_post('FORM', 'array', []);
+        $isSubmitRequest = '' !== $formName
+            && isset($postedForm[$formName])
+            && is_array($postedForm[$formName])
+            && array_key_exists('send', $postedForm[$formName]);
+
         try {
             $encryption = EncryptionService::getInstance();
 
@@ -157,13 +164,19 @@ class EventHandler
                     $decrypted = $encryption->decrypt($value);
                     // Dataset aktualisieren
                     $dataset->setValue($field, $decrypted);
-                    // YForm data-Array setzen – wird in executeFields() Schritt 3
-                    // die verschlüsselten SQL-Werte überschreiben
-                    $data[$field] = $decrypted;
+
+                    // Nur beim ersten Rendern in objparams[data] schreiben.
+                    // Bei Submit-Requests wuerde das in executeFields() (Schritt 3)
+                    // die vom User geposteten Werte wieder ueberschreiben.
+                    if (!$isSubmitRequest) {
+                        $data[$field] = $decrypted;
+                    }
                 }
             }
 
-            $yform->setObjectparams('data', $data);
+            if (!$isSubmitRequest) {
+                $yform->setObjectparams('data', $data);
+            }
         } catch (\Exception $e) {
             // Fehler ignorieren, verschlüsselter Wert wird angezeigt
         }

@@ -15,6 +15,11 @@ Verschlüsselt sensible YForm-Felder serverseitig mit libsodium (XSalsa20-Poly13
 - 🛡️ **Feingranulare Berechtigungen** – Addon-Verwaltung nur für Admins; der Export (CSV/Excel) kann über die Rolle `yform_encryption[export]` auch nicht-admininistativen Backend-Nutzern erlaubt werden
 - 🔗 **PHP-API** – `Helper`-Klasse für einfachen Zugriff aus Modulen und Templates
 
+### Neu in 1.1.0
+
+- Eingebettete YForm-Managerseiten in Addons werden jetzt fuer die Lock/Unlock-Statusleiste und SessionGuard-UI korrekt erkannt (sofern eine gueltige `table_name` im Request vorhanden ist).
+- Fix fuer Edit/Speichern verschluesselter Felder: Bei Submit-Requests werden User-Eingaben nicht mehr durch entschluesselte Altwerte ueberschrieben.
+
 ---
 
 ## Voraussetzungen
