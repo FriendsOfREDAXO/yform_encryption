@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": "^8.3",
         "phpoffice/phpspreadsheet": "^3.0"
     },
     "config": {
