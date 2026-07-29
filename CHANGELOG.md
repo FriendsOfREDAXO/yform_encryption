@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 - 2026-07-29
+
+Vendor: phpoffice/phpspreadsheet (3.10.5 => 3.10.7)
+
+
 ## 1.2.0 - 2026-05-03
 
 ### Added
