@@ -173,6 +173,15 @@ Folgende YForm-Feldtypen können verschlüsselt werden:
 | `ip` | IP-Adresse | Logging, DSGVO-relevante Netzwerkdaten |
 | `fields_iban` | IBAN (fields-Addon) | Bankverbindungen – **besonders schützenswert** |
 | `fields_inline` | Inline-Gruppe (fields-Addon) | Kombinierte Felder z.B. Adresse + IBAN |
+| `fields_table`, `fields_contacts`, `fields_social_web`, `fields_faq`, `fields_opening_hours` | JSON-Felder (fields-Addon) | Teilnehmerlisten, Kontaktkarten – Listenansicht zeigt weiter die Zusammenfassung des Feldtyps |
+
+Eigene Feldtypen lassen sich über den Extension Point `YFORM_ENCRYPTION_FIELD_TYPES` als verschlüsselbar anmelden:
+
+```php
+rex_extension::register('YFORM_ENCRYPTION_FIELD_TYPES', static fn (rex_extension_point $ep) => [...$ep->getSubject(), 'my_type']);
+```
+
+> **Spaltentyp:** Verschlüsselte Werte sind länger als der Klartext. Beim Speichern der Feldzuordnung werden zu kleine Spalten auf `TEXT` erweitert – und der Datenbanktyp in der YForm-Felddefinition ebenfalls auf `text` gesetzt, damit YForm die Spalte beim Neuaufbau der Tabelle nicht wieder verkleinert.
 
 **Nicht verschlüsselbar** (und auch nicht sinnvoll):
 - Auswahlfelder (`select`, `choice`, `checkbox`, `radio`) – zu wenige diskrete Werte, Verschlüsselung bringt keinen Sicherheitsgewinn

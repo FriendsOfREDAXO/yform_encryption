@@ -83,7 +83,58 @@ class ColumnMigrator
             ++$count;
         }
 
+        // Auch in der YForm-Felddefinition festhalten: Tabellen mit „Schema überschreiben“ (Standard) würden
+        // die Spalte sonst beim nächsten Neuaufbau (z. B. Feld speichern) wieder auf den kurzen Typ
+        // verkleinern und die verschlüsselten Werte abschneiden.
+        self::persistDbTypes($tableName, $fields);
+
         return $count;
+    }
+
+    /**
+     * Setzt db_type der YForm-Felder auf text, wo eine kurze varchar-Spalte hinterlegt ist.
+     *
+     * @param list<string> $fields
+     * @return int Anzahl angepasster Felddefinitionen
+     */
+    public static function persistDbTypes(string $tableName, array $fields): int
+    {
+        $count = 0;
+        foreach (self::shortDbTypes($tableName, $fields) as $field => $dbType) {
+            rex_sql::factory()->setQuery(
+                'UPDATE ' . rex::getTable('yform_field') . ' SET db_type = "text" WHERE table_name = ? AND name = ? AND type_id = "value"',
+                [$tableName, $field],
+            );
+            ++$count;
+        }
+        if ($count > 0 && class_exists(\rex_yform_manager_table::class)) {
+            \rex_yform_manager_table::deleteCache();
+        }
+        return $count;
+    }
+
+    /**
+     * YForm-Felder, deren hinterlegter db_type zu klein für Chiffrat ist (varchar unter 500 Zeichen).
+     *
+     * @param list<string> $fields
+     * @return array<string, string> Feldname => db_type
+     */
+    public static function shortDbTypes(string $tableName, array $fields): array
+    {
+        if ($fields === []) {
+            return [];
+        }
+        $rows = rex_sql::factory()->getArray(
+            'SELECT name, db_type FROM ' . rex::getTable('yform_field') . ' WHERE table_name = ? AND type_id = "value" AND name IN (' . implode(',', array_fill(0, count($fields), '?')) . ')',
+            array_merge([$tableName], array_values($fields)),
+        );
+        $short = [];
+        foreach ($rows as $row) {
+            if (preg_match('/^varchar\((\d+)\)/i', (string) $row['db_type'], $m) && (int) $m[1] < 500) {
+                $short[(string) $row['name']] = (string) $row['db_type'];
+            }
+        }
+        return $short;
     }
 
     /**
@@ -99,6 +150,16 @@ class ColumnMigrator
 
         foreach ($mappings as $tableName => $fields) {
             $checks = self::checkColumns($tableName, $fields);
+
+            foreach (self::shortDbTypes($tableName, $fields) as $field => $dbType) {
+                $warnings[] = sprintf(
+                    'Feld "%s.%s" ist in YForm mit db_type "%s" hinterlegt. Beim nächsten Neuaufbau der Tabelle würde YForm die Spalte '
+                    . 'verkleinern und verschlüsselte Werte abschneiden. Bitte die Feldzuordnung erneut speichern (setzt db_type auf TEXT).',
+                    $tableName,
+                    $field,
+                    $dbType,
+                );
+            }
 
             foreach ($checks as $check) {
                 if ($check['needed']) {
