@@ -208,31 +208,52 @@ class EventHandler
         }
 
         foreach ($fields as $field) {
-            if (in_array($field, $list->getColumnNames(), true)) {
-                $list->setColumnFormat($field, 'custom', static function (array $params) {
-                    $value = $params['value'] ?? '';
-                    if (!is_string($value) || $value === '') {
-                        return $value;
-                    }
-
-                    try {
-                        $encryption = EncryptionService::getInstance();
-                        if ($encryption->isEncrypted($value)) {
-                            $decrypted = $encryption->decryptSafe($value);
-                            return '<i class="rex-icon fa-lock" title="Verschlüsselt gespeichert"></i> '
-                                . rex_escape($decrypted);
-                        }
-                    } catch (\Exception $e) {
-                        return '<i class="rex-icon fa-exclamation-triangle text-danger"></i> '
-                            . rex_escape($value);
-                    }
-
-                    return rex_escape($value);
-                });
+            if (!in_array($field, $list->getColumnNames(), true)) {
+                continue;
             }
+            // Vorhandenes Format (z. B. getListValue() des Feldtyps, etwa die Zusammenfassung einer fields_table)
+            // erhalten und nur mit dem entschlüsselten Wert aufrufen – statt es durch Rohtext zu ersetzen.
+            $original = $list->getColumnFormat($field);
+            $list->setColumnFormat($field, 'custom', static function (array $params) use ($original) {
+                $value = $params['subject'] ?? ($params['value'] ?? '');
+                if (!is_string($value) || $value === '') {
+                    return self::formatOriginal($original, $params, $value);
+                }
+
+                try {
+                    $encryption = EncryptionService::getInstance();
+                    if (!$encryption->isEncrypted($value)) {
+                        return self::formatOriginal($original, $params, $value);
+                    }
+                    $decrypted = $encryption->decryptSafe($value);
+                } catch (\Exception $e) {
+                    return '<i class="rex-icon fa-exclamation-triangle text-danger"></i> ' . rex_escape($value);
+                }
+
+                return '<i class="rex-icon fa-lock" title="Verschlüsselt gespeichert"></i> '
+                    . self::formatOriginal($original, $params, $decrypted);
+            });
         }
 
         return $list;
+    }
+
+    /**
+     * Ruft das ursprüngliche Spaltenformat mit dem (entschlüsselten) Wert auf.
+     * Ohne eigenes Format: maskierter Klartext.
+     *
+     * @param mixed $original Rückgabe von rex_list::getColumnFormat(): [type, format, params] oder null
+     * @param array<string, mixed> $params
+     */
+    private static function formatOriginal($original, array $params, string $value): string
+    {
+        if (is_array($original) && 'custom' === ($original[0] ?? null) && is_callable($original[1] ?? null)) {
+            $params['subject'] = $value;
+            $params['value'] = $value;
+            $params['params'] = $original[2] ?? ($params['params'] ?? []);
+            return (string) call_user_func($original[1], $params);
+        }
+        return rex_escape($value);
     }
 
     /**

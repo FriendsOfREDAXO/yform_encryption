@@ -160,6 +160,27 @@ class FieldMapper
     }
 
     /**
+     * Verschlüsselbare YForm-Feldtypen: Text-basierte Kerntypen, Felder des AddOns „fields“
+     * (auch die als JSON gespeicherten wie Tabelle, Kontakte, FAQ) und weitere per Extension Point:
+     *
+     *   rex_extension::register('YFORM_ENCRYPTION_FIELD_TYPES', static fn (rex_extension_point $ep) => [...$ep->getSubject(), 'my_type']);
+     *
+     * @return list<string>
+     */
+    public static function getEncryptableTypes(): array
+    {
+        $types = ['text', 'textarea', 'email', 'phone', 'url', 'ip'];
+        if (\rex_addon::get('fields')->isAvailable()) {
+            // Einzelwerte und JSON-Strukturen (mediumtext) – Werte mit Personenbezug
+            array_push($types, 'fields_iban', 'fields_inline', 'fields_table', 'fields_contacts', 'fields_social_web', 'fields_faq', 'fields_opening_hours');
+        } else {
+            array_push($types, 'fields_iban', 'fields_inline');
+        }
+        $types = \rex_extension::registerPoint(new \rex_extension_point('YFORM_ENCRYPTION_FIELD_TYPES', $types));
+        return array_values(array_unique(array_map('strval', (array) $types)));
+    }
+
+    /**
      * Gibt alle YForm-Tabellen zurück, die text-basierte Felder haben.
      *
      * @return array<string, list<array{name: string, label: string, type_name: string}>>
@@ -174,16 +195,7 @@ class FieldMapper
             return $result;
         }
 
-        $encryptableTypes = [
-            'text',
-            'textarea',
-            'email',
-            'phone',
-            'url',
-            'ip',
-            'fields_iban',
-            'fields_inline',
-        ];
+        $encryptableTypes = self::getEncryptableTypes();
 
         foreach ($tables as $table) {
             $fields = $table->getFields(['type_id' => 'value']);
